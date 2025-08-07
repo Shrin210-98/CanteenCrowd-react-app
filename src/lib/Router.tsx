@@ -2,7 +2,7 @@ import React from "react"
 import { Routes, Route, Navigate } from "react-router"
 import Layout from "@/components/layout/Layout"
 import Dashboard from "@/pages/dashboard/Dashboard"
-import Login from "@/pages/auth/Login"
+import Auth from "@/pages/auth"
 
 export function Router() {
   return (
@@ -14,7 +14,7 @@ export function Router() {
         <Route path="register" element={<Register />} />
       </Route> */}
 
-      <Route path="login" element={<Login />} />
+      <Route path="login" element={<Auth />} />
       <Route path="/" element={<Layout />}>
         <Route path="/dashboard" element={<Dashboard />} />
       </Route>

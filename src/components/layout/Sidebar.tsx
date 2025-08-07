@@ -1,8 +1,8 @@
-import { Calendar, ChevronRightIcon, Ellipsis, Home, Inbox, Search, Settings } from "lucide-react"
-
+import { Calendar, ChevronRightIcon, CodeIcon, Ellipsis, Heart, Home, Inbox, MonitorSmartphoneIcon, Search, Settings } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -130,12 +130,12 @@ export function AppSidebar() {
                           align={isMobile ? "end" : "start"}
                         >
                           <div className="border-3 border-amber-200 rounded-lg">
-                          {item.menuItems?.map((item) => (
-                            <DropdownMenuItem>
-                              {/* <IconFolder /> */}
-                              <span className="">{item.title}</span>
-                            </DropdownMenuItem>
-                          ))}
+                            {item.menuItems?.map((item) => (
+                              <DropdownMenuItem>
+                                {/* <IconFolder /> */}
+                                <span className="">{item.title}</span>
+                              </DropdownMenuItem>
+                            ))}
                           </div>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -151,11 +151,10 @@ export function AppSidebar() {
   )
 }
 
-
-export function LoginSidebar() {
+export function AuthSidebar({ side, content, ...props }: { side: "left" | "right"; content: React.ReactNode }) {
   const { isMobile } = useSidebar()
   return (
-    <Sidebar variant="inset" collapsible="offcanvas">
+    <Sidebar variant="inset" collapsible="offcanvas" side={side} {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -164,7 +163,7 @@ export function LoginSidebar() {
               className="data-[slot=sidebar-menu-button]:!p-0.5 active:text-amber-200 active:bg-transparent hover:bg-transparent hover:text-amber-200"
               // disabled
             >
-              <div className="flex gap-4 ">
+              <div className="flex justify-center gap-4 w-full">
                 {/* <IconInnerShadowTop className="!size-5" /> */}
                 <div className="flex bg-amber-200 text-amber-700 rounded-lg pl-1 pr-1.5 gap-0 ">
                   <div className="pb-1 mt-[-5px] text-xl font-bold">c</div>
@@ -180,75 +179,26 @@ export function LoginSidebar() {
         <SidebarGroup>
           {/* <SidebarGroupLabel>Application</SidebarGroupLabel> */}
           <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) =>
-                item.collapsible ? (
-                  <Collapsible key={item.title} asChild defaultOpen={item.collapsible.isActive} className="group/collapsible">
-                    <SidebarMenuItem>
-                      <CollapsibleTrigger asChild>
-                        <SidebarMenuButton tooltip={item.title}>
-                          {item.icon && <item.icon />}
-                          <span className="font-medium">{item.title}</span>
-                          <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-270" />
-                        </SidebarMenuButton>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="overflow-hidden transition-all duration-300 ease-in-out data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-                        <SidebarMenuSub>
-                          {item.collapsible.items?.map((subItem) => (
-                            <SidebarMenuSubItem key={subItem.title}>
-                              <SidebarMenuSubButton asChild>
-                                <a href={subItem.url}>
-                                  <span className="font-medium">{subItem.title}</span>
-                                </a>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          ))}
-                        </SidebarMenuSub>
-                      </CollapsibleContent>
-                    </SidebarMenuItem>
-                  </Collapsible>
-                ) : (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <a href={item.url}>
-                        <item.icon size={"48"} />
-                        <span className="font-medium">{item.title}</span>
-                      </a>
-                    </SidebarMenuButton>
-                    {item.menuItems?.length > 0 && (
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <SidebarMenuAction
-                            // showOnHover
-                            className="data-[state=open]:bg-accent rounded-sm"
-                          >
-                            <Ellipsis />
-                            <span className="sr-only">More</span>
-                          </SidebarMenuAction>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                          className="w-24 rounded-lg bg-amber-700 text-amber-200 p-0.5"
-                          side={isMobile ? "bottom" : "right"}
-                          align={isMobile ? "end" : "start"}
-                        >
-                          <div className="border-3 border-amber-200 rounded-lg">
-                          {item.menuItems?.map((item) => (
-                            <DropdownMenuItem>
-                              {/* <IconFolder /> */}
-                              <span className="">{item.title}</span>
-                            </DropdownMenuItem>
-                          ))}
-                          </div>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    )}
-                  </SidebarMenuItem>
-                )
-              )}
-            </SidebarMenu>
+            <SidebarMenu>{content}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <div className="flex flex-wrap justify-between items-center">
+          {/* First element - will grow and wrap */}
+          <div className="flex-1 min-w-[min-content] pr-2">
+            <div className="flex items-center gap-1 truncate">
+              Made with passion <Heart size={20} fill="#fee685" className="text-amber-200 mx-1" /> by <span className="font-bold">@Shrin210</span>
+            </div>
+          </div>
+
+          {/* Second element - stays right-aligned */}
+          <div className="flex-shrink-0 flex items-center gap-2">
+            <CodeIcon />
+            <span>v0.1.0</span>
+          </div>
+        </div>
+      </SidebarFooter>
     </Sidebar>
   )
 }

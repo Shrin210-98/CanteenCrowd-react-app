@@ -1,21 +1,17 @@
-import "./App.css";
-import Layout from "./components/layout/layout";
-import { Button } from "./components/ui/button";
-import { ThemeProvider } from "./lib/theme-provider";
+import { Router } from "./lib/Router"
+import { ThemeProvider } from "./lib/theme-provider"
+import { BrowserRouter } from "react-router"
 
 function App() {
   return (
     <>
       <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-        <Layout>
-        {/* {children} */}asdas
-        <div className="flex min-h-svh flex-col items-center justify-center">
-          <Button>Click meeeee222</Button>
-        </div>
-        </Layout>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
       </ThemeProvider>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
